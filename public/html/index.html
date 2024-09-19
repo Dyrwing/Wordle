@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MyWordle</title>
+    <link rel="stylesheet" href="../style/style.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+</head>
+
+<body>
+    <h1 id="titleWordle">Wordle</h1>
+    <p id="facit"></p>
+    <h1 id="youWinText1">You</h1>
+    <h1 id="youWinText2">Win</h1>
+    <input type="button" value="Play Again" id="playAgain">
+    <div class="styleBox1">
+        <input type="button" value="Play Wordle!" id="doWordle" onclick="doWordleUI()">
+        <div class="midContainer">
+            <div class="guessWord" id="word1">
+                <div class="guessLetter L1"></div>
+                <div class="guessLetter L2"></div>
+                <div class="guessLetter L3"></div>
+                <div class="guessLetter L4"></div>
+                <div class="guessLetter L5"></div>
+            </div>
+            <div class="guessWord" id="word2">
+                <div class="guessLetter L1"></div>
+                <div class="guessLetter L2"></div>
+                <div class="guessLetter L3"></div>
+                <div class="guessLetter L4"></div>
+                <div class="guessLetter L5"></div>
+            </div>
+            <div class="guessWord" id="word3">
+                <div class="guessLetter L1"></div>
+                <div class="guessLetter L2"></div>
+                <div class="guessLetter L3"></div>
+                <div class="guessLetter L4"></div>
+                <div class="guessLetter L5"></div>
+            </div>
+            <div class="guessWord" id="word4">
+                <div class="guessLetter L1"></div>
+                <div class="guessLetter L2"></div>
+                <div class="guessLetter L3"></div>
+                <div class="guessLetter L4"></div>
+                <div class="guessLetter L5"></div>
+            </div>
+            <div class="guessWord" id="word5">
+                <div class="guessLetter L1"></div>
+                <div class="guessLetter L2"></div>
+                <div class="guessLetter L3"></div>
+                <div class="guessLetter L4"></div>
+                <div class="guessLetter L5"></div>
+            </div>
+            <div class="guessWord" id="word6">
+                <div class="guessLetter L1"></div>
+                <div class="guessLetter L2"></div>
+                <div class="guessLetter L3"></div>
+                <div class="guessLetter L4"></div>
+                <div class="guessLetter L5"></div>
+            </div>
+            <input type="text" minlength="5" maxlength="5" placeholder="Type Word" id="typeWord"
+                pattern="[^@]+@[^@]+\.[a-zA-Z]{2,6}" autocomplete="off">
+            <div class="allLetters">
+                <div class="first Row">
+                    <div class="letter q">q</div>
+                    <div class="letter w">w</div>
+                    <div class="letter e">e</div>
+                    <div class="letter r">r</div>
+                    <div class="letter t">t</div>
+                    <div class="letter y">y</div>
+                    <div class="letter u">u</div>
+                    <div class="letter i">i</div>
+                    <div class="letter o">o</div>
+                    <div class="letter p">p</div>
+                </div>
+                <div class="second Row">
+                    <div class="letter a">a</div>
+                    <div class="letter s">s</div>
+                    <div class="letter d">d</div>
+                    <div class="letter f">f</div>
+                    <div class="letter g">g</div>
+                    <div class="letter h">h</div>
+                    <div class="letter j">j</div>
+                    <div class="letter k">k</div>
+                    <div class="letter l">l</div>
+                </div>
+                <div class="third Row">
+                    <div class="letter z">z</div>
+                    <div class="letter x">x</div>
+                    <div class="letter c">c</div>
+                    <div class="letter v">v</div>
+                    <div class="letter b">b</div>
+                    <div class="letter n">n</div>
+                    <div class="letter m">m</div>
+                </div>
+            </div>
+            <input type="button" value="guess" onclick="guessFunc()" id="guessButton">
+        </div>
+    </div>
+    <div class="styleBox2">
+        <input type="button" value="Make Your Own Wordle!" id="makeWordle" onclick="makeOwnWordleUI()">
+        <div class="midContainer2">
+            <div id="topMakeWordle">
+                <h2 id="realWordText">REAL WORD?</h2>
+                <div class="yesOrNo">
+                    <div id="realWordYesBox">
+                        <input type="button" name="realWord" class="wordleRealWordYes" value="Y">
+                        <input type="button" name="realWord" class="wordleRealWordYes" value="E">
+                        <input type="button" name="realWord" class="wordleRealWordYes" value="S">
+                    </div>
+                    <div id="realWordNoBox">
+                        <input type="button" name="realWord" class="wordleRealWordNo" value="N">
+                        <input type="button" name="realWord" class="wordleRealWordNo" value="O">
+                    </div>
+                </div>
+            </div>
+            <div id="buttomMakeWordle">
+                <input type="text" minlength="5" maxlength="5" placeholder="Type Word" id="typeOwnWordle"
+                    pattern="[^@]+@[^@]+\.[a-zA-Z]{2,6}" autocomplete="off">
+                <div class="guessWord" id="word2">
+                    <div class="makeLetter ML1"></div>
+                    <div class="makeLetter ML2"></div>
+                    <div class="makeLetter ML3"></div>
+                    <div class="makeLetter ML4"></div>
+                    <div class="makeLetter ML5"></div>
+                </div>
+                
+            </div>
+            <input type="button" value="Make Wordle" onclick="makeWordle()" id="makeWordleButton">
+        </div>
+    </div>
+    <script src="../js/words.js"></script>
+    <script src="../js/myscript.js"></script>
+</body>
+
+</html>
