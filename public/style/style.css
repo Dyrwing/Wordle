@@ -67,6 +67,48 @@ body {
     z-index: -1;
     transition: 0.3s;
 }
+#youLooseText1 {
+    position: absolute;
+    top: 60%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+    color: white;
+    font-size: 0px;
+    z-index: 3;
+}
+
+#youLooseText1.lost {
+    position: absolute;
+    top: 18%;
+    left: 23%;
+    transform: translate(-50%,-50%);
+    color: black;
+    font-size: 400px;
+    font-style: italic;
+    z-index: -1;
+    transition: 0.3s;
+}
+#youLooseText2 {
+    position: absolute;
+    top: 60%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+    color: white;
+    font-size: 0px;
+    z-index: 3;
+}
+
+#youLooseText2.lost {
+    position: absolute;
+    top: 18%;
+    left: 76%;
+    transform: translate(-50%,-50%);
+    color: black;
+    font-size: 400px;
+    font-style: italic;
+    z-index: -1;
+    transition: 0.3s;
+}
 
 
 
@@ -81,6 +123,7 @@ body {
     border-radius: 15px;
     transition: 0.3s;
     opacity: 1;
+    z-index: 20;
     
 }
 
@@ -95,7 +138,12 @@ body {
     height: 500px;
     transition: 0.15s;
     padding: 10px 0px;
-    
+}
+.styleBox1.lost {
+    align-items: start;
+    height: 500px;
+    transition: 0.15s;
+    padding: 10px 0px;
 }
 #doWordle {
     display: none;
@@ -128,6 +176,7 @@ body {
     margin-top: 2px;
     border-radius: 15px;
     transition: 0.2s;
+    z-index: 20;
 }
 .styleBox2.minimize {
     display: flex;
@@ -140,7 +189,14 @@ body {
     border-radius: 15px;
     transition: 0.6s;
 }
-
+.styleBox2.lost {
+    display: none;
+    transition-delay: 0.3s;
+}
+.styleBox2.win {
+    display: none;
+    transition-delay: 0.3s;
+}
 .midContainer {
     display: flex;
     flex-direction: column;
@@ -173,6 +229,10 @@ body {
 }
 
 .midContainer.win {
+    height: 470px;
+    transition: 0.15s;
+}
+.midContainer.lost {
     height: 470px;
     transition: 0.15s;
 }
@@ -232,6 +292,10 @@ body {
     transition-delay: 0.3s;
     display: none;
 }
+#typeWord.lost {
+    transition-delay: 0.3s;
+    display: none;
+}
 
 .allLetters {
     height: auto;
@@ -241,6 +305,10 @@ body {
 }
 
 .allLetters.win {
+    transition-delay: 0.3s;
+    display: none;
+}
+.allLetters.lost {
     transition-delay: 0.3s;
     display: none;
 }
@@ -341,6 +409,17 @@ body {
     color: white;
     outline: none;
 }
+#copyLinkButton {
+    width: 100%;
+    height: 50px;
+    border-radius: 5px;
+    border: 0;
+    font-size: 20px;
+    text-align: center;
+    background-color: rgb(77, 77, 77);
+    color: white;
+    outline: none;
+}
 
 #playAgain {
     position: absolute;
@@ -348,22 +427,30 @@ body {
     left: 50%;
     transform: translate(-50%,-50%);
     color: black;
-    font-weight: 600;
+    font-weight: 900;
     font-size: 0px;
     font-style: italic;
     z-index: -1;
-    background: none;
 	border: none;
-	padding: 0;
+    background: none;
+	padding: 10px;
 	cursor: pointer;
 	outline: inherit;
 }
 
 #playAgain.win {
     top: 85%;
-    font-size: 100px;
-    transition: 3s;
+    font-size: 70px;
+    transition: 1s;
     transition-delay: 0.3s;
+    z-index: 21;
+}
+#playAgain.lost {
+    top: 85%;
+    font-size: 70px;
+    transition: 1s;
+    transition-delay: 0.3s;
+    z-index: 21;
 }
 
 #facit {

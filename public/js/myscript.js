@@ -3,13 +3,47 @@ console.log(words[0]);
 //set focus to input field
 document.getElementById("typeWord").focus();
 let validWord = 1;
-let correctWord = words[Math.floor(Math.random() * words.length)];
+let correctWord = "";
+const params = new URLSearchParams(window.location.search);
+const customWord = params.get('word');
+const iv = params.get('iv');
+
+async function getWord() {
+  if (customWord) {
+    
+    const response = await fetch("/decodeWord", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({
+        customWord: customWord,
+        iv: iv,
+      })
+    });
+
+
+
+    //const response = await fetch("/decodeWord?word=" + customWord + "&iv=" + iv)
+    correctWord = await response.text();
+    console.log(typeof String(correctWord));
+    console.log(correctWord);
+    
+
+  } else {
+    correctWord = words[Math.floor(Math.random() * words.length)];
+  }
+
+}
+document.addEventListener("DOMContentLoaded", async (event) => {
+  await getWord();
+});
+
 
 //Display facit on screen
 //document.getElementById("facit").style.display = "block"
 //document.getElementById("facit").innerHTML = correctWord;
 
-console.log(correctWord);
 let guessAmount = 0;
 let won = false;
 let inputBox = document.getElementById('typeWord');
@@ -30,26 +64,26 @@ inputBox.onkeyup = function (event) {
       $('#word' + (guessAmount + 1) + " .L" + (value.length + 1)).removeClass('animate');
     }
   }
-  else {
+  else if (key === "Enter") {
+    return;
+
+  } else {
     if (!document.getElementById("word" + (guessAmount + 1)).getElementsByClassName("L" + (value.length))[0].classList.contains("animate")) {
       $('#word' + (guessAmount + 1) + " .L" + (value.length)).addClass('animate');
     }
     else {
       $('#word' + (guessAmount + 1) + " .L" + (value.length)).removeClass('animate');
     }
-
   }
 
-  if (key === "Enter") {
-    return;
-  }
 
-  for (let index = 0; index < 6; index++) {
+
+
+  for (let index = 0; index < 5; index++) {
     let letter = document.getElementById("word" + (guessAmount + 1)).getElementsByClassName("L" + (index + 1))[0];
 
     letter.innerHTML = value.charAt(index).toUpperCase();
     letter.style.color = "white";
-    console.log(inputBox.value.charAt(index));
 
   }
 }
@@ -63,7 +97,7 @@ function guessFunc() {
 
       let letter = document.getElementById("word" + (guessAmount + 1)).getElementsByClassName("L" + (index + 1))[0];
       let errorCode = "error"
-      console.log(errorCode);
+
       letter.innerHTML = errorCode.charAt(index).toUpperCase();
       letter.style.backgroundColor = "red";
       letter.style.color = "white";
@@ -117,14 +151,24 @@ function guessFunc() {
     $('.allLetters').addClass('win');
     $('.midContainer').addClass('win');
     $('.styleBox1').addClass('win');
+    $('.styleBox2').addClass('win');
     $('#playAgain').addClass('win');
+
     won = true;
   }
   if (guessAmount == 5 && won == false) {
-    alert("Du tabte!")
+    $('#youLooseText1').addClass('lost');
+    $('#youLooseText2').addClass('lost');
+    $('#typeWord').addClass('lost');
+    $('.allLetters').addClass('lost');
+    $('.midContainer').addClass('lost');
+    $('.styleBox1').addClass('lost');
+    $('.styleBox2').addClass('lost');
+    $('#playAgain').addClass('lost');
+    //alert("Du tabte!")
   }
   guessAmount++;
-  console.log(guessAmount);
+  console.log("guess count: " + guessAmount);
   document.getElementById("typeWord").value = "";
 }
 
@@ -152,7 +196,7 @@ function makeOwnWordleUI() {
     $('.midContainer2').addClass('maximize');
   }, 300);
   setTimeout(() => {
-    console.log("Delayed for 1 second.");
+
     $('.midContainer2').addClass('maximize2');
     $('.midContainer2').removeClass('minimize2');
   }, 400);
@@ -166,7 +210,7 @@ function doWordleUI() {
     $('.midContainer').addClass('minimize2');
   }, 300);
   setTimeout(() => {
-    console.log("Delayed for 1 second.");
+
     $('.midContainer').removeClass('minimize');
     $('.midContainer').removeClass('minimize2');
   }, 400);
@@ -176,11 +220,11 @@ function doWordleUI() {
   $('.midContainer2').removeClass('maximize2');
 }
 
-function makeWordle() {
-  let ownWord = document.getElementById("typeOwnWordle").value;
+async function makeWordle() {
+  let ownWord = document.getElementById("typeOwnWordle").value.toLowerCase();
   console.log(ownWord);
   if (!$('.wordleRealWordYes').hasClass('notSelected')) {
-    console.log("Det er koorekt");
+
     if (!words.includes(ownWord)) {
       alert("Skriv venligst et gyldigt ord!")
       return;
@@ -194,15 +238,36 @@ function makeWordle() {
   }
   if ($('.wordleRealWordYes').hasClass('notSelected')) {
     validWord = 0;
-
   }
+
+
+
+
   correctWord = ownWord;
-  
+
   console.log(ownWord.length);
-  doWordleUI()
+  //doWordleUI()
+  //enable copy link button
+  document.getElementById("copyLinkButton").disabled = false;
 
 
 }
+async function generateLink() {
+  const word = correctWord;
+  if (word) {
+    // Construct the link with the custom word
+    const response = await fetch("/getLink/" + correctWord)
+    const link = await response.text();
+    console.log(link);
+    //const link = `http://localhost:3000/play?word=${encodeURIComponent(word)}`;
+    navigator.clipboard.writeText(link);
+    //document.getElementById('linkOutput').innerHTML = `<a href="${link}" target="_blank">Play Custom Wordle</a>`;
+  } else {
+    alert('Please enter a word!');
+  }
+}
+
+
 
 function animateLetter(letter, guessAmount, index) {
   if (!letter.classList.contains("animate")) {
@@ -216,11 +281,11 @@ function animateLetter(letter, guessAmount, index) {
 //Check for real word or not
 let yesBoxElement = document.getElementById("#realWordYesBox");
 let noBoxElement = document.getElementById("#realWordNoBox");
-$("#realWordNoBox").hover( function () {
+$("#realWordNoBox").hover(function () {
   $('.wordleRealWordNo').addClass('selected');
   $('.wordleRealWordYes').addClass('notSelected');
 });
-$("#realWordYesBox").hover( function () {
+$("#realWordYesBox").hover(function () {
   $('.wordleRealWordNo').removeClass('selected');
   $('.wordleRealWordYes').removeClass('notSelected');
 });
@@ -243,6 +308,9 @@ inputBoxMake.onkeyup = function (event) {
       $(".ML" + (value.length + 1)).removeClass('animate');
     }
   }
+  else if (key === "Enter") {
+    return;
+  }
   else {
     if (!document.getElementsByClassName("ML" + (value.length))[0].classList.contains("animate")) {
       $(".ML" + (value.length)).addClass('animate');
@@ -253,11 +321,9 @@ inputBoxMake.onkeyup = function (event) {
 
   }
 
-  if (key === "Enter") {
-    return;
-  }
 
-  for (let index = 0; index < 6; index++) {
+
+  for (let index = 0; index < 5; index++) {
     let letter = document.getElementsByClassName("ML" + (index + 1))[0];
 
     letter.innerHTML = value.charAt(index).toUpperCase();
@@ -266,3 +332,7 @@ inputBoxMake.onkeyup = function (event) {
 
   }
 }
+
+document.getElementById("playAgain").addEventListener("click", () => {
+  location.reload();
+});

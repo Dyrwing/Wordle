@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>MyWordle</title>
-    <link rel="stylesheet" href="../style/style.css">
+    <link rel="stylesheet" href="public/style/style.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 </head>
 
@@ -14,6 +14,8 @@
     <p id="facit"></p>
     <h1 id="youWinText1">You</h1>
     <h1 id="youWinText2">Win</h1>
+    <h1 id="youLooseText1">You</h1>
+    <h1 id="youLooseText2">Lost</h1>
     <input type="button" value="Play Again" id="playAgain">
     <div class="styleBox1">
         <input type="button" value="Play Wordle!" id="doWordle" onclick="doWordleUI()">
@@ -129,10 +131,11 @@
                 
             </div>
             <input type="button" value="Make Wordle" onclick="makeWordle()" id="makeWordleButton">
+            <input type="button" value="Click to copy link" onclick="generateLink()" id="copyLinkButton" disabled>
         </div>
     </div>
-    <script src="../js/words.js"></script>
-    <script src="../js/myscript.js"></script>
+    <script src="public/js/words.js"></script>
+    <script src="public/js/myscript.js"></script>
 </body>
 
 </html>
