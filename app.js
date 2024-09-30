@@ -5,6 +5,8 @@ var logger = require('morgan');
 const bcrypt = require('bcryptjs');
 const crypto = require('crypto');
 const e = require('express');
+require('dotenv').config();
+
 // log requests
 app.use(logger('dev'));
 // Tell express to expet json data
@@ -14,19 +16,26 @@ app.use('/public', express.static(path.join(__dirname, "public")))
 
 // Secret key and initialization vector should be managed securely.
 const algorithm = 'aes-256-cbc';
-const secretKey = crypto.randomBytes(32); // Ensure you store this key securely
+//const secretKey = crypto.randomBytes(32); // Ensure you store this key securely
+//const hexKey = secretKey.toString('hex');
+//console.log("HEX KEY", hexKey);
+
+//const secretKey = "<Buffer 2e 7c ac 74 78 29 f5 14 b7 59 6d ac 26 72 e1 a0 dc 29 cc fb 13 8d 60 3e a1 21 34 92 44 72 6c 8d>"
+//console.log(typeof secretKey);
+//const secretKEYYYY = "<Buffer 2e 7c ac 74 78 29 f5 14 b7 59 6d ac 26 72 e1 a0 dc 29 cc fb 13 8d 60 3e a1 21 34 92 44 72 6c 8d>"
+//console.log("SECRET", secretKey);
+//console.log("SECRET", secretKEYYYY);
+
+const secretKey = Buffer.from(process.env.SECRET_KEY, 'hex');
 console.log("SECRET", secretKey);
-
-const iv = crypto.randomBytes(16); // Initialization vector
-
-
 
 
 app.get("/getLink/:word", (req, res) => {
     try {
         let word = req.params.word;
         const { iv, encryptedData } = encrypt(word);
-        const link = `http://localhost:3000/play?word=${encodeURIComponent(encryptedData)}&iv=${encodeURIComponent(iv)}`;
+        
+        const link = `http://170.64.145.73/play?word=${encodeURIComponent(encryptedData)}&iv=${encodeURIComponent(iv)}`;
         console.log(link);
         res.send(link);
     } catch (error) {
@@ -61,13 +70,14 @@ app.get('/play', (req, res) => {
 
 // Encryption function
 function encrypt(text) {
-    const cipher = crypto.createCipheriv(algorithm, Buffer.from(secretKey), iv);
+    let ivEncrypt = crypto.randomBytes(16); // Initialization vector
+    let cipher = crypto.createCipheriv(algorithm, secretKey, ivEncrypt);
     let encrypted = cipher.update(text, 'utf8', 'hex');
     encrypted += cipher.final('hex');
     console.log("ENCRYPTED", encrypted);
-    console.log("IV", iv.toString('hex'));
+    console.log("IV", ivEncrypt.toString('hex'));
 
-    return { iv: iv.toString('hex'), encryptedData: encrypted };
+    return { iv: ivEncrypt.toString('hex'), encryptedData: encrypted };
 }
 
 // Decryption function

@@ -104,7 +104,7 @@
     <div class="styleBox2">
         <input type="button" value="Make Your Own Wordle!" id="makeWordle" onclick="makeOwnWordleUI()">
         <div class="midContainer2">
-            <div id="topMakeWordle">
+            <div id="topMakeWordle" style="display: none;">
                 <h2 id="realWordText">REAL WORD?</h2>
                 <div class="yesOrNo">
                     <div id="realWordYesBox">
@@ -130,8 +130,10 @@
                 </div>
                 
             </div>
-            <input type="button" value="Make Wordle" onclick="makeWordle()" id="makeWordleButton">
-            <input type="button" value="Click to copy link" onclick="generateLink()" id="copyLinkButton" disabled>
+            <div id="makeAndCopyBox">
+                <input type="button" value="Make Wordle" onclick="makeWordle()" id="makeWordleButton" disabled>
+                <input type="button" value="" id="copyLinkButton" disabled>
+            </div>
         </div>
     </div>
     <script src="public/js/words.js"></script>

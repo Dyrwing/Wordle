@@ -397,20 +397,64 @@ body {
     opacity: 1;
 }
 
-
-#makeWordleButton {
+#makeAndCopyBox {
     width: 100%;
-    height: 50px;
-    border-radius: 5px;
+    position: relative;
+    height: auto;
+
     border: 0;
-    font-size: 20px;
     text-align: center;
-    background-color: rgb(77, 77, 77);
+    background-color: rgb(54, 54, 54);
     color: white;
     outline: none;
 }
-#copyLinkButton {
+
+#makeWordleButton {
+    position: inherit;
     width: 100%;
+    height: 50px;
+    border-radius: 5px;
+    border: 0;
+    font-size: 20px;
+    text-align: center;
+    background-color: rgb(77, 77, 77);
+    outline: none;
+    color: white;
+    text-transform: uppercase;
+    cursor: pointer;
+    letter-spacing: 2px;
+    font-weight: 600;
+    outline: none;
+    align-self: center;
+    transition: 0.3s;
+    z-index: 5;
+}
+#makeWordleButton:disabled {
+    position: inherit;
+    width: 95%;
+    height: 50px;
+    border-radius: 5px;
+    border: 0;
+    font-size: 20px;
+    text-align: center;
+    background-color: rgb(77, 77, 77);
+    outline: none;
+    color: gray;
+    text-transform: uppercase;
+    cursor: not-allowed;
+    letter-spacing: 2px;
+    font-weight: 600;
+    outline: none;
+    transition: 0.3s;
+    z-index: 5;
+}
+#copyLinkButton:disabled {
+    position: absolute;
+    width: 20%;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 1;
     height: 50px;
     border-radius: 5px;
     border: 0;
@@ -419,6 +463,36 @@ body {
     background-color: rgb(77, 77, 77);
     color: white;
     outline: none;
+    transition: 0.3;
+}
+#copyLinkButton {
+    position: absolute;
+    top: 60px;
+    left: 50%;
+    transform: translate(-50%, 0%);
+    width: 95%;
+    height: 50px;
+    border-radius: 5px;
+    border: 0;
+    font-size: 12px;
+    text-align: center;
+    padding: 5px;
+    overflow: hidden;
+    background-color: rgb(77, 77, 77);
+    cursor: pointer;
+    color: gray;
+    outline: none;
+    z-index: 1;
+}
+#copyLinkButton.hover {
+    color: white;
+    font-size: 20px;
+    font-weight: 600;
+    transition: 0.3s;
+}
+#copyLinkButton:focus {     
+    width: 100%;
+    transition: 0.3s;  
 }
 
 #playAgain {

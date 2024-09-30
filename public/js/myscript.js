@@ -220,6 +220,8 @@ function doWordleUI() {
   $('.midContainer2').removeClass('maximize2');
 }
 
+let link = "";
+
 async function makeWordle() {
   let ownWord = document.getElementById("typeOwnWordle").value.toLowerCase();
   console.log(ownWord);
@@ -240,6 +242,12 @@ async function makeWordle() {
     validWord = 0;
   }
 
+  link = await generateLink();
+  console.log(link);
+  
+  copyBtn = document.getElementById("copyLinkButton");
+  copyBtn.value = link;
+  copyBtn.disabled = false;
 
 
 
@@ -249,9 +257,8 @@ async function makeWordle() {
   //doWordleUI()
   //enable copy link button
   document.getElementById("copyLinkButton").disabled = false;
-
-
 }
+
 async function generateLink() {
   const word = correctWord;
   if (word) {
@@ -259,13 +266,28 @@ async function generateLink() {
     const response = await fetch("/getLink/" + correctWord)
     const link = await response.text();
     console.log(link);
-    //const link = `http://localhost:3000/play?word=${encodeURIComponent(word)}`;
-    navigator.clipboard.writeText(link);
+    return link;
     //document.getElementById('linkOutput').innerHTML = `<a href="${link}" target="_blank">Play Custom Wordle</a>`;
   } else {
     alert('Please enter a word!');
   }
 }
+
+
+let copyLinkBtn = document.getElementById("copyLinkButton");
+copyLinkBtn.addEventListener("mouseenter", () => {
+  copyLinkBtn.classList.add("hover");
+  copyLinkBtn.value = "COPY LINK";
+});
+
+copyLinkBtn.addEventListener("mouseleave", () => {
+  copyLinkBtn.classList.remove("hover");
+  copyLinkBtn.value = link;
+});
+
+copyLinkBtn.addEventListener("click", () => {
+  navigator.clipboard.writeText(link);
+});
 
 
 
@@ -296,6 +318,12 @@ let inputBoxMake = document.getElementById('typeOwnWordle');
 inputBoxMake.onkeyup = function (event) {
   let value = String(inputBoxMake.value)
 
+  if (inputBoxMake.value.length == 5) {
+    console.log("gdfgdfgfdgdfg");
+    document.getElementById("makeWordleButton").disabled = false;
+  } else {
+    document.getElementById("makeWordleButton").disabled = true;
+  }
   const key = event.key;
   if (key === "Backspace" || key === "Delete") {
     console.log("DELETE");
@@ -334,5 +362,5 @@ inputBoxMake.onkeyup = function (event) {
 }
 
 document.getElementById("playAgain").addEventListener("click", () => {
-  location.reload();
+  window.location.href = "http://170.64.145.73/play";
 });
