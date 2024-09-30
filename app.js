@@ -35,7 +35,7 @@ app.get("/getLink/:word", (req, res) => {
         let word = req.params.word;
         const { iv, encryptedData } = encrypt(word);
         
-        const link = `http://170.64.145.73/play?word=${encodeURIComponent(encryptedData)}&iv=${encodeURIComponent(iv)}`;
+        const link = `http://170.64.145.73/wordle?word=${encodeURIComponent(encryptedData)}&iv=${encodeURIComponent(iv)}`;
         console.log(link);
         res.send(link);
     } catch (error) {
@@ -63,7 +63,7 @@ app.post("/decodeWord", (req, res) => {
     
 })
 
-app.get('/play', (req, res) => {
+app.get('/', (req, res) => {
     res.sendFile(path.join(__dirname, 'public/html/index.html'));
 
 });

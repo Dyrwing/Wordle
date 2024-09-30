@@ -362,5 +362,5 @@ inputBoxMake.onkeyup = function (event) {
 }
 
 document.getElementById("playAgain").addEventListener("click", () => {
-  window.location.href = "http://170.64.145.73/play";
+  window.location.href = "http://170.64.145.73/wordle";
 });
