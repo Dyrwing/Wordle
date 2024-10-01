@@ -11,6 +11,7 @@ const iv = params.get('iv');
 async function getWord() {
   if (customWord) {
     
+    //Sends post request to server with encrypted word and iv, to get the actual word
     const response = await fetch("/decodeWord", {
       method: "POST",
       headers: {
@@ -21,13 +22,8 @@ async function getWord() {
         iv: iv,
       })
     });
-
-
-
-    //const response = await fetch("/decodeWord?word=" + customWord + "&iv=" + iv)
+    
     correctWord = await response.text();
-    console.log(typeof String(correctWord));
-    console.log(correctWord);
     
 
   } else {
@@ -319,7 +315,6 @@ inputBoxMake.onkeyup = function (event) {
   let value = String(inputBoxMake.value)
 
   if (inputBoxMake.value.length == 5) {
-    console.log("gdfgdfgfdgdfg");
     document.getElementById("makeWordleButton").disabled = false;
   } else {
     document.getElementById("makeWordleButton").disabled = true;
@@ -349,8 +344,6 @@ inputBoxMake.onkeyup = function (event) {
 
   }
 
-
-
   for (let index = 0; index < 5; index++) {
     let letter = document.getElementsByClassName("ML" + (index + 1))[0];
 
@@ -360,7 +353,23 @@ inputBoxMake.onkeyup = function (event) {
 
   }
 }
-
+//handles play again feature. If the user clicks the play again button, the page will be reloaded, to either localhost or the public IP
 document.getElementById("playAgain").addEventListener("click", () => {
-  window.location.href = "http://170.64.145.73/wordle";
+  // Get the current host
+  const currentHost = window.location.hostname;
+  
+  // Determine the base URL based on the current host
+  let baseUrl;
+
+  if (currentHost === "localhost") {
+    // Running on localhost
+    baseUrl = "http://localhost:4000";
+  } else {
+    // Running on public IP or any other host
+    baseUrl = `http://${currentHost}/wordle`;
+  }
+
+  // Redirect to the determined base URL
+  window.location.href = baseUrl;
 });
+

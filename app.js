@@ -5,7 +5,7 @@ var logger = require('morgan');
 const bcrypt = require('bcryptjs');
 const crypto = require('crypto');
 const e = require('express');
-require('dotenv').config();
+require('dotenv').config({ path: 'environment.env' });
 
 // log requests
 app.use(logger('dev'));
@@ -16,15 +16,6 @@ app.use('/public', express.static(path.join(__dirname, "public")))
 
 // Secret key and initialization vector should be managed securely.
 const algorithm = 'aes-256-cbc';
-//const secretKey = crypto.randomBytes(32); // Ensure you store this key securely
-//const hexKey = secretKey.toString('hex');
-//console.log("HEX KEY", hexKey);
-
-//const secretKey = "<Buffer 2e 7c ac 74 78 29 f5 14 b7 59 6d ac 26 72 e1 a0 dc 29 cc fb 13 8d 60 3e a1 21 34 92 44 72 6c 8d>"
-//console.log(typeof secretKey);
-//const secretKEYYYY = "<Buffer 2e 7c ac 74 78 29 f5 14 b7 59 6d ac 26 72 e1 a0 dc 29 cc fb 13 8d 60 3e a1 21 34 92 44 72 6c 8d>"
-//console.log("SECRET", secretKey);
-//console.log("SECRET", secretKEYYYY);
 
 const secretKey = Buffer.from(process.env.SECRET_KEY, 'hex');
 console.log("SECRET", secretKey);
@@ -34,9 +25,21 @@ app.get("/getLink/:word", (req, res) => {
     try {
         let word = req.params.word;
         const { iv, encryptedData } = encrypt(word);
+
+         // Access the hostname directly
+         const currentHost = req.hostname;  // or req.headers.host
+         
+         // Determine the base URL based on the current host
+         let baseUrl;
+ 
+         if (currentHost === "localhost") {
+             baseUrl = "http://localhost:4000";
+         } else {
+             baseUrl = `http://${currentHost}/wordle`;
+         }
+
         
-        const link = `http://170.64.145.73/wordle?word=${encodeURIComponent(encryptedData)}&iv=${encodeURIComponent(iv)}`;
-        console.log(link);
+        const link = `${baseUrl}?word=${encodeURIComponent(encryptedData)}&iv=${encodeURIComponent(iv)}`;
         res.send(link);
     } catch (error) {
         console.error("Encryption error:", error);
@@ -65,7 +68,6 @@ app.post("/decodeWord", (req, res) => {
 
 app.get('/', (req, res) => {
     res.sendFile(path.join(__dirname, 'public/html/index.html'));
-
 });
 
 // Encryption function
@@ -88,4 +90,4 @@ function decrypt(iv, encryptedData) {
     return decrypted;
 }
 
-app.listen(3000, () => console.log('Example app listening on port 3000!'))
+app.listen(4000, () => console.log('Example app listening on port 4000!'))
