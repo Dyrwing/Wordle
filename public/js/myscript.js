@@ -12,7 +12,7 @@ async function getWord() {
   if (customWord) {
     
     //Sends post request to server with encrypted word and iv, to get the actual word
-    const response = await fetch("/decodeWord", {
+    const response = await fetch("/wordle/decodeWord", {
       method: "POST",
       headers: {
         "Content-Type": "application/json"
@@ -266,7 +266,7 @@ async function generateLink() {
   const word = correctWord;
   if (word) {
     // Construct the link with the custom word
-    const response = await fetch("/getLink/" + correctWord)
+    const response = await fetch("/wordle/getLink/" + correctWord)
     const link = await response.text();
     console.log(link);
     return link;
