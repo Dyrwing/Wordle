@@ -23,7 +23,13 @@ async function getWord() {
       })
     });
     
-    correctWord = await response.text();
+    if (response.ok) {
+      correctWord = await response.text();
+      
+    } else {
+      correctWord = words[Math.floor(Math.random() * words.length)];
+    }
+    
     
 
   } else {
@@ -240,6 +246,7 @@ async function makeWordle() {
 
   link = await generateLink();
   console.log(link);
+  document.getElementById("linkToCopy").innerHTML = link;
   
   copyBtn = document.getElementById("copyLinkButton");
   copyBtn.value = link;

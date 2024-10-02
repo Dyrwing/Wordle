@@ -19,11 +19,16 @@ body {
 }
 
 #titleWordle {
-    margin-top: 50px;
+    margin: 30px;
     height: 30px;
     width: 100%;
     font-size: 30px;
 }
+@media (max-width: 500px) {
+    #titleWordle {
+        margin-top: 130px;
+    }
+  }
 
 #youWinText1 {
     position: absolute;
@@ -110,8 +115,6 @@ body {
     transition: 0.3s;
 }
 
-
-
 .styleBox1 {
     display: flex;
     justify-content: center;
@@ -119,19 +122,31 @@ body {
     background-color: black;
     width: 430px;
     height: 700px;
-    margin-top: 50px;
+    margin-top: 0px;
     border-radius: 15px;
     transition: 0.3s;
     opacity: 1;
     z-index: 20;
-    
 }
-
-
 .styleBox1.minimize {
     height: 50px;
-    
 }
+
+@media (max-width: 500px) {
+    .styleBox1 {
+        width: 250px;
+        height: 430px;
+    }
+    .styleBox1.minimize {
+        height: 40px;
+        font-size: 14px;
+    }
+  }
+
+
+
+
+
 
 .styleBox1.win {
     align-items: start;
@@ -178,6 +193,7 @@ body {
     transition: 0.2s;
     z-index: 20;
 }
+
 .styleBox2.minimize {
     display: flex;
     justify-content: center;
@@ -189,6 +205,20 @@ body {
     border-radius: 15px;
     transition: 0.6s;
 }
+
+@media (max-width: 500px) {
+    .styleBox2 {
+        width: 250px;
+        height: 40px;
+        font-size: 14px;
+    }
+    .styleBox2.minimize {
+        width: 250px;
+        height: 430px;
+    }
+  }
+
+
 .styleBox2.lost {
     display: none;
     transition-delay: 0.3s;
@@ -210,10 +240,6 @@ body {
     opacity: 1;
 }
 
-.midContainer.minimize {
-    display: none;
-}
-
 .midContainer.minimize.minimize2 {
     opacity: 0;
     transition: 2s;
@@ -227,6 +253,24 @@ body {
     padding: 15px;
     transition-delay: 0s;
 }
+
+@media (max-width: 500px) {
+    .midContainer {
+        width: 200px;
+        height: 89%;
+    }
+    .midContainer.minimize.minimize2 {
+        width: 200px;
+        height: 89%;
+    }
+  }
+
+
+.midContainer.minimize {
+    display: none;
+}
+
+
 
 .midContainer.win {
     height: 470px;
@@ -245,8 +289,13 @@ body {
     justify-content: space-evenly;
     align-items: center;
     margin-bottom: 10px;
-
 }
+
+@media (max-width: 500px) {
+    .guessWord {
+        height: 25px;
+    }
+  }
 
 .guessLetter {
     display: flex;
@@ -260,6 +309,15 @@ body {
     font-weight: 700;
     transition: 1s;
 }
+
+@media (max-width: 500px) {
+    .guessLetter {
+        height: 36px;
+        width: 36px;
+        font-size: 18px;
+    }
+  }
+
  .guessLetter.animate {
     transform: rotatex(360deg);
  }
@@ -283,6 +341,14 @@ body {
     outline: none;
     transition: 0.3s;
 }
+@media (max-width: 500px) {
+    #typeWord {
+        width: 95%; 
+        height: 35px;
+        font-size: 14px;
+
+    }
+  }
 
 #typeWord:hover {
     transform: scale(1.01);
@@ -329,6 +395,13 @@ body {
     align-items: center;
     justify-content: center;
 }
+@media (max-width: 500px) {
+    .letter {
+        height: 20px;
+        width: 20px;
+        font-size: 10px;
+    }
+  }
 
 #guessButton {
     display: none;
@@ -363,6 +436,7 @@ body {
     font-size: 20px;
     text-align: center;
     background-color: rgb(77, 77, 77);
+    padding: 0;
     color: lightgray;
     text-transform: uppercase;
     letter-spacing: 2px;
@@ -370,6 +444,13 @@ body {
     outline: none;
     transition: 0.3s;
 }
+@media (max-width: 500px) {
+    #typeOwnWordle {
+        width: 95%; 
+        height: 37px;
+        font-size: 14px;
+    }
+  }
 
 #typeOwnWordle:hover {
     transform: scale(1.01);
@@ -387,6 +468,12 @@ body {
     opacity: 1;
     display: none;
 }
+@media (max-width: 500px) {
+    .midContainer2 {
+        width: 200px;
+        height: 89%;
+    }
+  }
 
 .midContainer2.maximize {
     display: flex;
@@ -429,25 +516,22 @@ body {
     transition: 0.3s;
     z-index: 5;
 }
+
 #makeWordleButton:disabled {
-    position: inherit;
     width: 95%;
-    height: 50px;
-    border-radius: 5px;
-    border: 0;
-    font-size: 20px;
-    text-align: center;
-    background-color: rgb(77, 77, 77);
-    outline: none;
     color: gray;
-    text-transform: uppercase;
     cursor: not-allowed;
-    letter-spacing: 2px;
-    font-weight: 600;
-    outline: none;
     transition: 0.3s;
     z-index: 5;
 }
+@media (max-width: 500px) {
+    #makeWordleButton {
+        width: 95%; 
+        height: 37px;
+        font-size: 14px;
+    }
+  }
+
 #copyLinkButton:disabled {
     position: absolute;
     width: 20%;
@@ -596,12 +680,10 @@ body {
 /* Type letters in "make wordle" */
 
 #buttomMakeWordle {
-    border: 2px solid black;
     border-radius: 6px;
     height: 30%;
     display: flex;
     flex-direction: column;
-    
     align-items: center;
     justify-content: space-around;
 }
@@ -618,6 +700,14 @@ body {
     font-weight: 700;
     transition: 1s;
 }
+
+@media (max-width: 500px) {
+    .makeLetter {
+        height: 35px;
+        width: 35px;
+        font-size: 18px;
+    }
+  }
  .makeLetter.animate {
     transform: rotatex(360deg);
  }
