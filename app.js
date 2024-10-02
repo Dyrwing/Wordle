@@ -20,6 +20,18 @@ const algorithm = 'aes-256-cbc';
 const secretKey = Buffer.from(process.env.SECRET_KEY, 'hex');
 console.log("SECRET", secretKey);
 
+// Middleware to conditionally redirect /wordle to / only if on localhost
+app.use('/wordle', (req, res, next) => {
+    const currentHost = req.hostname;
+    
+    // Check if the host is localhost
+    if (currentHost === 'localhost' || currentHost === '127.0.0.1') {
+        // Modify the request URL by stripping off '/wordle'
+        req.url = req.originalUrl.replace('/wordle', '');
+    }
+    
+    next();  // Pass control to the next matching route
+});
 
 app.get("/getLink/:word", (req, res) => {
     try {
