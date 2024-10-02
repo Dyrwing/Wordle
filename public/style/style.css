@@ -4,6 +4,9 @@
 
 html {
     height: 100%;
+    background: radial-gradient(circle, rgba(255,255,255,1) 6%, rgba(148,144,144,1) 37%, rgba(0,0,0,1) 100%, rgba(0,0,0,1) 100%);
+    background-size: contain;
+    background-repeat: no-repeat;
 }
 
 body {
@@ -16,6 +19,8 @@ body {
     background-repeat: no-repeat;
     height: 100%;
     margin: 0;
+    min-height: 900px;
+    
 }
 
 #titleWordle {
@@ -130,16 +135,19 @@ body {
 }
 .styleBox1.minimize {
     height: 50px;
+    transition: 0.3s;
 }
 
 @media (max-width: 500px) {
     .styleBox1 {
         width: 250px;
         height: 430px;
+        transition: 0.3s;
     }
     .styleBox1.minimize {
         height: 40px;
         font-size: 14px;
+        transition: 0.3s;
     }
   }
 
@@ -187,7 +195,7 @@ body {
     align-items: center;
     background-color: black;
     width: 430px;
-    height: 50px;
+    min-height: 50px;
     margin-top: 2px;
     border-radius: 15px;
     transition: 0.2s;
@@ -258,6 +266,7 @@ body {
     .midContainer {
         width: 200px;
         height: 89%;
+        transition: 0s;
     }
     .midContainer.minimize.minimize2 {
         width: 200px;
